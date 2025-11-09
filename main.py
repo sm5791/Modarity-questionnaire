@@ -24,7 +24,7 @@ def create_scatter_plot(x_data, y_data, z_data):
         c=z_data,         # ★ 回答者の回答 (z_data) を色に指定
         cmap='coolwarm',  # カラーマップ
         s=400,            # 点のサイズ
-        alpha=0.8,
+        alpha=1,
         vmin=-10,         # ★ 色の最小値を-10に固定
         vmax=10           # ★ 色の最大値を10に固定
     )
@@ -33,8 +33,8 @@ def create_scatter_plot(x_data, y_data, z_data):
     ax.set_xticks(range(1, 11))
     ax.set_yticks(range(1, 11))
     fig.colorbar(scatter, ax=ax, label='Response Value (Z-data)') # カラーバー
-    ax.set_xlabel("first interval (i)")
-    ax.set_ylabel("second interval (j)")
+    ax.set_xlabel("first interval")
+    ax.set_ylabel("second interval")
     ax.set_title("Survey Responses Heatmap (Scatter Plot)")
     ax.grid(True, linestyle='--', alpha=0.5)
     
@@ -119,7 +119,7 @@ if submit_button:
     st.success("ご回答ありがとうございます！")
     
     st.header("回答の視覚化グラフ")
-    st.write("あなたの回答 (`slider_values`) が `z_data` (色の濃淡) としてプロットされています。")
+    st.write("あなたの回答プロットされています。")
     
     # (x, y) 座標と、回答 (z) を渡してグラフを作成
     fig = create_scatter_plot(x_data_coords, y_data_coords, slider_values)
@@ -130,7 +130,7 @@ if submit_button:
     st.info("以下のボタンを押して、回答の控え（CSVファイル）をダウンロードしてください。")
     
     st.download_button(
-        label="【自分の全回答】をCSVでダウンロード",
+        label="Download csv",
         data=csv_data,
         file_name=f"my_survey_response_{datetime.now().strftime('%Y%m%d')}.csv",
         mime="text/csv",

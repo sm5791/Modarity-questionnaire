@@ -83,7 +83,7 @@ with st.form(key="survey_form", clear_on_submit=False):
         audio_bytes = load_audio_file(audio_path)
         
         # 4. 質問ラベルとプレーヤーを表示
-        st.markdown(f"**質問 {i+1} / {num_questions} ({question_label})**")
+        st.markdown(f"**質問 {i+1} / {num_questions} (**{question_label})**")
         if audio_bytes:
             st.audio(audio_bytes, format='audio/mp3')
         else:

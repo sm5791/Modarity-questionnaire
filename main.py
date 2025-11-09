@@ -23,10 +23,7 @@ def create_scatter_plot(x_data, y_data, z_data):
         y_data, 
         c=z_data,         # ★ 回答者の回答 (z_data) を色に指定
         cmap='coolwarm',  # カラーマップ
-        s=400,            # 点のサイズ
-        alpha=1,
-        vmin=-10,         # ★ 色の最小値を-10に固定
-        vmax=10           # ★ 色の最大値を10に固定
+        s=400           # 点のサイズ
     )
     
     # 軸とタイトルの設定 (英語/豆腐回避)

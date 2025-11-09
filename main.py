@@ -10,7 +10,7 @@ import os # ★ MP3のファイル存在チェックのために追加
 # --- 1. アプリのタイトル ---
 st.set_page_config(page_title="Survey Plot App")
 st.title("モダリティ　アンケートフォーム")
-st.markdown(r"各音源を聞き、項目の明るさを$-10$から$10$で評価してください。お試し版なので、音源は３項目しか用意していません。") # ★ 説明文を修正
+st.markdown(r"各音源を聞き、項目の明るさを$-10$から$10$で評価してください。お試し版なので、音源は３項目しか用意していません。[first interval , second interval]です。") # ★ 説明文を修正
 
 # --- 2. グラフ描画用の関数 (変更なし) ---
 def create_scatter_plot(x_data, y_data, z_data):

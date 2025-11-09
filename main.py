@@ -13,7 +13,7 @@ st.write("各項目の満足度を0.0 (不満) から 10.0 (満足) で評価し
 # (ここで55個の質問名を定義します)
 # (例として "Item 1", "Item 2", ... と自動生成します)
 num_questions = 55
-questions = [f"項目 {i+1}: 〇〇の満足度" for i in range(num_questions)]
+questions = [f"項目 {i+1}:Modarity " for i in range(num_questions)]
 
 # --- 3. 入力フォーム ---
 with st.form(key="survey_form", clear_on_submit=False):

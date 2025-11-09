@@ -7,12 +7,8 @@ import io # CSVをメモリ上で扱うため
 # --- 1. アプリのタイトル ---
 st.set_page_config(page_title="Survey (55 Sliders)")
 st.title("モダリティ　アンケートフォーム")
-st.write("各項目の明るさを-10から10で評価してください。")
+st.markdown(r"各項目の明るさを$-10$から$10$で評価してください。")
 
-st.markdown(r"これはモデル関数 $M_e(x)$ と $M_f(x)$ に関するアンケートです。")
-st.latex(r'''
-    M_e(x) = a x e^{-\frac{x^2}{b}} - c x e^{-\frac{x^4}{d}}
-''')
 
 # --- 2. 質問リストの定義 ---
 # (ここで55個の質問名を定義します)

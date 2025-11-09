@@ -6,14 +6,21 @@ import io # CSVをメモリ上で扱うため
 
 # --- 1. アプリのタイトル ---
 st.set_page_config(page_title="Survey (55 Sliders)")
-st.title("55項目アンケートフォーム")
-st.write("各項目の満足度を0.0 (不満) から 10.0 (満足) で評価してください。")
+st.title("モダリティ　アンケートフォーム")
+st.write("各項目の明るさを-10から10で評価してください。")
 
 # --- 2. 質問リストの定義 ---
 # (ここで55個の質問名を定義します)
 # (例として "Item 1", "Item 2", ... と自動生成します)
+
+
+f_allconb_list = []
+for i in range( 1 , 11 ):
+  for j in range( 1 , 12 - i ):
+    f_allconb_list.append([i,j])
+
 num_questions = 55
-questions = [f"項目 {i+1}:Modarity " for i in range(num_questions)]
+questions = [f"項目 {i+1}:{f_allconb_list[i]} " for i in range(num_questions)]
 
 # --- 3. 入力フォーム ---
 with st.form(key="survey_form", clear_on_submit=False):

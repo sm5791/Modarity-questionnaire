@@ -10,7 +10,7 @@ import os # ★ MP3のファイル存在チェックのために追加
 # --- 1. アプリのタイトル ---
 st.set_page_config(page_title="Survey Plot App")
 st.title("モダリティ　アンケートフォーム")
-st.markdown(r"各音源を聞き、項目の明るさを$-10$から$10$で評価してください。お試し版なので、音源は適当になってます。") 
+st.markdown(r"各音源を聞き、項目の明るさを$-10$から$10$で評価してください。お試し版なので、音源は３項目しか用意していません。") # ★ 説明文を修正
 
 # --- 2. グラフ描画用の関数 (変更なし) ---
 def create_scatter_plot(x_data, y_data, z_data):
@@ -142,5 +142,25 @@ if submit_button:
     df_response = pd.DataFrame(response_data)
     
     # DataFrame を CSV 形式のテキストデータに変換
-    # 5e. DataFrame を CSV 形式のテキストデータに変換
     csv_data = df_response.to_csv(index=False, encoding='utf-8-sig').encode('utf-8-sig')
+
+    # 完了メッセージと「グラフ表示」
+    st.success("ご回答ありがとうございます！")
+    
+    st.header("回答の視覚化グラフ")
+    st.write("あなたの回答がプロットされています。")
+    
+    # (x, y) 座標と、回答 (z) を渡してグラフを作成
+    fig = create_scatter_plot(x_data_coords, y_data_coords, slider_values)
+    st.pyplot(fig) # Streamlit にグラフを表示
+
+    # ダウンロードボタンの表示
+    st.header("回答のダウンロード")
+    st.info("以下のボタンを押して、回答の控え（CSVファイル）をダウンロードしてください。")
+    
+    st.download_button(
+        label="Download csv",
+        data=csv_data,
+        file_name=f"my_survey_response_{datetime.now().strftime('%Ym%d')}.csv",
+        mime="text/csv",
+    )

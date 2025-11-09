@@ -7,8 +7,6 @@ import matplotlib.pyplot as plt # グラフ描画
 import numpy as np # グラフ描画
 import os # ★ MP3のファイル存在チェックのために追加
 
-
-
 # --- 1. アプリのタイトル ---
 st.set_page_config(page_title="Survey Plot App")
 st.title("モダリティ　アンケートフォーム")
@@ -36,7 +34,7 @@ def create_scatter_plot(x_data, y_data, z_data):
     ax.grid(True, linestyle='--', alpha=0.5)
     return fig
 
-# --- ★ 3. MP3読み込み用関数 (新規追加) ---
+# --- ★ 3. MP3読み込み用関数 (変更なし) ---
 # st.cache_data を使い、一度読み込んだファイルはキャッシュする
 #@st.cache_data
 def load_audio_file(path):
@@ -46,7 +44,7 @@ def load_audio_file(path):
             return f.read()
     return None
 
-# --- 4. 質問リストと座標の定義 (元の 3.) ---
+# --- 4. 質問リストと座標の定義 (変更なし) ---
 f_allconb_list = []
 for i in range( 1 , 11 ):
   for j in range( 1 , 12 - i ):
@@ -71,13 +69,17 @@ with st.form(key="survey_form", clear_on_submit=False):
     
     for i, question_label in enumerate(questions):
         
-        # 1. 対応する (i, j) ペアを取得
+        # 1. 対応する (i, j) ペアを取得 (質問ラベル表示用)
         pair = f_allconb_list[i]
         
-        # 2. ファイル名を生成 (例: "audio_1_1.mp3")
-        audio_path = f"audio_{pair[0]}_{pair[1]}.mp3"
+        # --- ★★★ ここを変更 ★★★ ---
+        # 2. ファイル名を生成 (例: "audio00001.mp3")
+        #    i は 0 から 54 なので、i+1 (1から55) を使います
+        #    :05d は「5桁で、足りない分は0で埋める」という意味
+        audio_path = f"audio{i+1:05d}.mp3"
+        # --- ★★★ 変更ここまで ★★★ ---
         
-        # 3. オーディオファイルをロード (キャッシュが効きます)
+        # 3. オーディオファイルをロード
         audio_bytes = load_audio_file(audio_path)
         
         # 4. 質問ラベルとプレーヤーを表示
@@ -113,7 +115,7 @@ with st.form(key="survey_form", clear_on_submit=False):
     # 送信ボタン
     submit_button = st.form_submit_button(label='回答を確定')
 
-# --- 6. 送信ボタンが押された後の処理 (元の 5. / 変更なし) ---
+# --- 6. 送信ボタンが押された後の処理 (元の 5.) ---
 if submit_button:
     
     # タイムスタンプの取得
@@ -127,9 +129,11 @@ if submit_button:
         "タイムスタンプ": [timestamp]
     }
     
+    # --- ★★★ ここを変更 ★★★ ---
     # スライダーの回答を辞書に追加
-    # CSVの列名を "Item_i_j" に変更 (例: "Item_1_1")
-    slider_column_names = [f"Item_{pair[0]}_{pair[1]}" for pair in f_allconb_list]
+    # CSVの列名を "Item_001", "Item_002"... に変更
+    slider_column_names = [f"Item_{i+1:03d}" for i in range(num_questions)]
+    # --- ★★★ 変更ここまで ★★★ ---
     
     for i, col_name in enumerate(slider_column_names):
         response_data[col_name] = [slider_values[i]]
@@ -138,25 +142,4 @@ if submit_button:
     df_response = pd.DataFrame(response_data)
     
     # DataFrame を CSV 形式のテキストデータに変換
-    csv_data = df_response.to_csv(index=False, encoding='utf-8-sig').encode('utf-8-sig')
-
-    # 完了メッセージと「グラフ表示」
-    st.success("ご回答ありがとうございます！")
-    
-    st.header("回答の視覚化グラフ")
-    st.write("あなたの回答がプロットされています。")
-    
-    # (x, y) 座標と、回答 (z) を渡してグラフを作成
-    fig = create_scatter_plot(x_data_coords, y_data_coords, slider_values)
-    st.pyplot(fig) # Streamlit にグラフを表示
-
-    # ダウンロードボタンの表示
-    st.header("回答のダウンロード")
-    st.info("以下のボタンを押して、回答の控え（CSVファイル）をダウンロードしてください。")
-    
-    st.download_button(
-        label="Download csv",
-        data=csv_data,
-        file_name=f"my_survey_response_{datetime.now().strftime('%Y%m%d')}.csv",
-        mime="text/csv",
-    )
+    csv_data = df_response.to_csv(index=False, encoding='utf-8

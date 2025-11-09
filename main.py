@@ -14,6 +14,7 @@ st.markdown(r"各音源を聞き、項目の明るさを$-10$から$10$で評価
 
 # --- 2. グラフ描画用の関数 (変更なし) ---
 def create_scatter_plot(x_data, y_data, z_data):
+    norm = colors.TwoSlopeNorm(vcenter=0)
     # ( ... グラフ描画のコードはそのまま ... )
     fig, ax = plt.subplots(figsize=(8, 6))
     scatter = ax.scatter(
@@ -21,7 +22,8 @@ def create_scatter_plot(x_data, y_data, z_data):
         y_data, 
         c=z_data,
         cmap='coolwarm',
-        s=400
+        s=400,
+        norm=norm
     )
     ax.set_xticks(range(1, 11))
     ax.set_yticks(range(1, 11))

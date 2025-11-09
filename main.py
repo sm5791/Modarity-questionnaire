@@ -7,38 +7,12 @@ import matplotlib.pyplot as plt # グラフ描画
 import numpy as np # グラフ描画
 import os # ★ MP3のファイル存在チェックのために追加
 
-# --- ↓↓↓ デバッグコードを追加 ↓↓↓ ---
-st.divider()
-st.header("Debug Info:")
-
-try:
-    # サーバー上のカレントディレクトリを調べる
-    current_dir = os.getcwd()
-    st.write(f"Current Working Directory: {current_dir}")
-
-    # カレントディレクトリにあるファイル一覧を表示
-    files_list = os.listdir(current_dir)
-    st.write("Files in this directory:")
-    st.write(files_list)
-
-    # 目的のファイルが存在するかどうかを直接チェック
-    target_file = "audio_1_1.mp3"
-    file_exists = os.path.exists(target_file)
-    st.write(f"Does '{target_file}' exist here?  ->  **{file_exists}**")
-
-except Exception as e:
-    st.error(f"Error while listing files: {e}")
-
-st.divider()
-# --- ↑↑↑ デバッグコードここまで ---
-
-
 
 
 # --- 1. アプリのタイトル ---
 st.set_page_config(page_title="Survey Plot App")
 st.title("モダリティ　アンケートフォーム")
-st.markdown(r"各音源を聞き、項目の明るさを$-10$から$10$で評価してください。") # ★ 説明文を修正
+st.markdown(r"各音源を聞き、項目の明るさを$-10$から$10$で評価してください。お試し版なので、音源は３項目しか用意していません。") # ★ 説明文を修正
 
 # --- 2. グラフ描画用の関数 (変更なし) ---
 def create_scatter_plot(x_data, y_data, z_data):

@@ -20,7 +20,7 @@ for i in range( 1 , 11 ):
     f_allconb_list.append([i,j])
 
 num_questions = 55
-questions = [f"項目 {i+1}:{f_allconb_list[i]} " for i in range(num_questions)]
+questions = [f"{f_allconb_list[i]} " for i in range(num_questions)]
 
 # --- 3. 入力フォーム ---
 with st.form(key="survey_form", clear_on_submit=False):

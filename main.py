@@ -64,7 +64,7 @@ def create_scatter_plot(x_data, y_data, z_data):
 
 # --- ★ 3. MP3読み込み用関数 (新規追加) ---
 # st.cache_data を使い、一度読み込んだファイルはキャッシュする
-@st.cache_data
+#@st.cache_data
 def load_audio_file(path):
     """MP3ファイルをバイナリとして読み込む"""
     if os.path.exists(path):

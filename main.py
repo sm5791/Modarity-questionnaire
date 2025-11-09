@@ -4,6 +4,7 @@ from datetime import datetime
 import pytz # タイムゾーン
 import io # CSVをメモリ上で扱うため
 import matplotlib.pyplot as plt # グラフ描画
+import matplotlib.colors as colors
 import numpy as np # グラフ描画
 import os # ★ MP3のファイル存在チェックのために追加
 

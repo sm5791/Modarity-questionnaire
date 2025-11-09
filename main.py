@@ -142,4 +142,5 @@ if submit_button:
     df_response = pd.DataFrame(response_data)
     
     # DataFrame を CSV 形式のテキストデータに変換
-    csv_data = df_response.to_csv(index=False, encoding='utf-8
+    # 5e. DataFrame を CSV 形式のテキストデータに変換
+    csv_data = df_response.to_csv(index=False, encoding='utf-8-sig').encode('utf-8-sig')
